@@ -1,11 +1,11 @@
-public class LinkedListDeque<PlaceholderType>{
+public class LinkedListDeque<T> implements Deque<T>{
 
     private class ListNode {
-        private PlaceholderType item;
+        private T item;
         private ListNode prev;
         private ListNode next;
 
-        private ListNode(ListNode p, PlaceholderType i, ListNode n) {
+        private ListNode(ListNode p, T i, ListNode n) {
             prev = p;
             item = i;
             next = n;
@@ -23,7 +23,8 @@ public class LinkedListDeque<PlaceholderType>{
         size = 0;
     }
 
-    public void addFirst(PlaceholderType item) {
+    @Override
+    public void addFirst(T item) {
         ListNode newNode = new ListNode(sentinel, item, sentinel.next);
         sentinel.next.prev = newNode;
         sentinel.next = newNode;
@@ -33,7 +34,8 @@ public class LinkedListDeque<PlaceholderType>{
 //        size += 1;
     }
 
-    public void addLast(PlaceholderType item) {
+    @Override
+    public void addLast(T item) {
         ListNode newNode = new ListNode(sentinel.prev, item, sentinel);
         sentinel.prev.next = newNode;
         sentinel.prev = newNode;
@@ -43,14 +45,17 @@ public class LinkedListDeque<PlaceholderType>{
 //        size += 1;
     }
 
-    public boolean isEmpty() {
-        return (this.size == 0);
-    }
+//    @Override
+//    public boolean isEmpty() {
+//        return (this.size == 0);
+//    }
 
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public void printDeque() {
         ListNode node = sentinel;
         while (node.next != sentinel) {
@@ -59,13 +64,14 @@ public class LinkedListDeque<PlaceholderType>{
         }
     }
 
-    public PlaceholderType removeFirst() {
+    @Override
+    public T removeFirst() {
         if (size == 0) {
             // no such item exists, return null
             return null;
         } else {
             // remove first item and return that item
-            PlaceholderType firstItem = sentinel.next.item;
+            T firstItem = sentinel.next.item;
             sentinel.next.next.prev = sentinel;
             sentinel.next = sentinel.next.next;
             size -= 1;
@@ -74,13 +80,14 @@ public class LinkedListDeque<PlaceholderType>{
         }
     }
 
-    public PlaceholderType removeLast() {
+    @Override
+    public T removeLast() {
         if (size == 0) {
             // no such item exists, return null
             return null;
         } else {
             // remove last item and return that item
-            PlaceholderType lastItem = sentinel.prev.item;
+            T lastItem = sentinel.prev.item;
             sentinel.prev.prev.next = sentinel;
             sentinel.prev = sentinel.prev.prev;
             size -= 1;
@@ -89,7 +96,7 @@ public class LinkedListDeque<PlaceholderType>{
         }
     }
 
-    public PlaceholderType getIterative(int index) {
+    public T getIterative(int index) {
         int length = size;
         ListNode target = sentinel.next;
 
@@ -104,7 +111,7 @@ public class LinkedListDeque<PlaceholderType>{
         }
     }
 
-    public PlaceholderType getRecursive(int index) {
+    public T getRecursive(int index) {
         int length = size;
         // no such item exists, returns null.
         if (index > length - 1) {
@@ -114,7 +121,8 @@ public class LinkedListDeque<PlaceholderType>{
         }
     }
 
-    public PlaceholderType get(int index) {
+    @Override
+    public T get(int index) {
         int count = 0;
         ListNode ptr = sentinel;
         while (ptr.next != sentinel) {
@@ -127,7 +135,7 @@ public class LinkedListDeque<PlaceholderType>{
         return null;
     }
 
-    public PlaceholderType traverse(ListNode n, int i) {
+    public T traverse(ListNode n, int i) {
         if (i == 0) {
             return n.item;
         } else {
@@ -144,6 +152,7 @@ public class LinkedListDeque<PlaceholderType>{
 
         Dllist.addFirst(66);
         Dllist.printDeque();
+        System.out.println(Dllist.isEmpty());
 
 //        System.out.println("Test getIterative #1");
 //        System.out.println(Dllist.getIterative(0)); // expected 666
